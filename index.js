@@ -180,7 +180,7 @@ const compare = (val1, val2) => {
 };
 
 module.exports = () => {
-  return new Promise((res) => {
+  return new Promise((resolve) => {
     Fingerprint2.get((fp) => {
       let res = [
         getUABits(fp[0].value, 8),
@@ -200,7 +200,7 @@ module.exports = () => {
         numberArr.push(res.slice(i, i + MAX_BITS));
       }
       const myfp = bitArrayToHexFP(res);
-      res(myfp);
+      resolve(myfp);
     });
   });
 };
