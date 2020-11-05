@@ -1,6 +1,6 @@
 {
-  "name": "apparts-fingerprint",
-  "version": "1.0.0",
+  "name": "@apparts/fingerprint",
+  "version": "1.0.1",
   "description": "Fingerprinting wrapper for the apparts library",
   "main": "index.js",
   "scripts": {

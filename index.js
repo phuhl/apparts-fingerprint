@@ -180,25 +180,27 @@ const compare = (val1, val2) => {
 };
 
 module.exports = () => {
-  Fingerprint2.get((fp) => {
-    let res = [
-      getUABits(fp[0].value, 8),
-      getUABits(fp[19].value, 8),
-      getPluginBits(fp[16].value, 16),
-      getFontBits(fp[26].value, 16),
-      getCanvasBits(fp[17].value, 32),
-      getCanvasBits(fp[18].value, 32),
-    ];
-    res = res.concat(onlyOneBit.map((key) => (fp[key].value ? 1 : 0))); // 10
-    res = res.concat(
-      multiBit.map((key, i) => getStringBits(fp[key].value, mbitSizes[i]))
-    ); // 77
-    res = res.flat();
-    let numberArr = [];
-    for (let i = 0, j = res.length; i < j; i += MAX_BITS) {
-      numberArr.push(res.slice(i, i + MAX_BITS));
-    }
-    const myfp = bitArrayToHexFP(res);
-    return myfp;
+  return new Promise((res) => {
+    Fingerprint2.get((fp) => {
+      let res = [
+        getUABits(fp[0].value, 8),
+        getUABits(fp[19].value, 8),
+        getPluginBits(fp[16].value, 16),
+        getFontBits(fp[26].value, 16),
+        getCanvasBits(fp[17].value, 32),
+        getCanvasBits(fp[18].value, 32),
+      ];
+      res = res.concat(onlyOneBit.map((key) => (fp[key].value ? 1 : 0))); // 10
+      res = res.concat(
+        multiBit.map((key, i) => getStringBits(fp[key].value, mbitSizes[i]))
+      ); // 77
+      res = res.flat();
+      let numberArr = [];
+      for (let i = 0, j = res.length; i < j; i += MAX_BITS) {
+        numberArr.push(res.slice(i, i + MAX_BITS));
+      }
+      const myfp = bitArrayToHexFP(res);
+      res(myfp);
+    });
   });
 };
