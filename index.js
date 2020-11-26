@@ -183,12 +183,12 @@ module.exports = () => {
   return new Promise((resolve) => {
     Fingerprint2.get((fp) => {
       let res = [
-        getUABits(fp[0].value, 8),
-        getUABits(fp[19].value, 8),
-        getPluginBits(fp[16].value, 16),
-        getFontBits(fp[26].value, 16),
-        getCanvasBits(fp[17].value, 32),
-        getCanvasBits(fp[18].value, 32),
+        getUABits(fp[0].value || "", 8),
+        getUABits(fp[19].value || "", 8),
+        getPluginBits(fp[16].value || "", 16),
+        getFontBits(fp[26].value || "", 16),
+        getCanvasBits(fp[17].value || "", 32),
+        getCanvasBits(fp[18].value || "", 32),
       ];
       res = res.concat(onlyOneBit.map((key) => (fp[key].value ? 1 : 0))); // 10
       res = res.concat(
